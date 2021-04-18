@@ -4,10 +4,16 @@ import Home from '../views/Home.vue'
 import UserRegister from "@/views/UserRegister";
 import Login from "@/views/Login";
 import AllProducts from "@/views/AllProducts";
+import AddProduct from "@/views/AddProduct";
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/add',
+    name: 'AddProduct',
+    component: AddProduct
+  },
   {
     path: '/products',
     name: 'AllProducts',

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="wrapper ">
-      <div class="sidebar" data-color="rose" data-background-color="black" data-image="/assets/img/sidebar-1.jpg">
+      <div class="sidebar text-left" data-color="green" data-background-color="black" data-image="/assets/img/sidebar-1.jpg">
         <!--
           Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -316,7 +316,7 @@
                   <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>
                 </button>
               </div>
-              <a class="navbar-brand" href="javascript:;">Dashboard</a>
+              <a class="navbar-brand text-left" href="javascript:;">Dashboard</a>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
               <span class="sr-only">Toggle navigation</span>
