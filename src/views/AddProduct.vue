@@ -49,42 +49,26 @@
                         </span>
                     </label>
                   </div>
-
+                  
+                  <br>
+                  <b class="input-group no-border col-sm-7 text-danger h6">Turlari</b>
                   <div class="input-group no-border col-sm-7">
-                    <input @keyup="searchData()" v-model="query" type="text" value="" class="form-control" placeholder="Qidirish...">
-                    <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                      <i class="material-icons">search</i>
-                      <div class="ripple-container"></div>
-                    </button>
-                  </div>
 
-
-                  <div class="card-body">
-                    <div class="table-responsive ">
-                      <table class="table">
-                        <thead class=" text-primary">
-                        <th>Birinchi Tur</th>
-                        </thead>
-                        <tbody>
-                        <tr data-size="3" v-for="item in allTypes" v-bind:key="item.id">
-
-                            <button v-if="item.parentId === 0" class="btn btn-info btn-sm btn-round ">Small</button>
-
-                        </tr>
-                        </tbody>
-                      </table>
-                      <table v-if="!type1Select" class="table">
-                        <thead class="text-primary">
-                        <th>Ikkinchi Tur</th>
-                        </thead>
-                        <tbody>
-                        <tr v-for="item in allTypes" v-bind:key="item.id">
-                          <td v-if="item.parentId === 1">{{item.name}}</td>
-                        </tr>
-                        </tbody>
-                      </table>
+                    <div class="dropdown">
+                      <ul class="dropdown-menu show" data-style="select-with-transition">
+                        <li v-for="item in allTypes" v-bind:key="item.id">
+                          <a class="dropdown-item colo" v-if="item.parentId === 0"  href="#">{{ item.name }}</a>
+                        </li>
+                      </ul>
                     </div>
+
+                    <input @keyup="searchData()" v-model="query" type="text" value="" class="form-control" placeholder="Qidirish...">
                   </div>
+
+
+
+
+
 
                 </form>
               </div>
@@ -136,5 +120,7 @@ name: "AddProduct",
 </script>
 
 <style scoped>
+
+
 
 </style>
