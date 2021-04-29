@@ -418,10 +418,23 @@
         </footer>
       </div>
     </div>
-
 <!--    <router-view/>-->
   </div>
 </template>
+<script>
+import axios from "axios";
+
+export default {
+  name: 'App',
+  async created() {
+    await axios.get('/user/getmarketid').then(
+        res => {
+          localStorage.setItem('marketId', res.data.marketId)
+        }
+    )
+  }
+}
+</script>
 
 <style>
 #app {
