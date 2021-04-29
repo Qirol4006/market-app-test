@@ -88,7 +88,7 @@
 
 
               <div class="card-group justify-content-between col-sm-12">
-                <button type="submit" class="btn btn-round btn-rose">
+                <button type="submit" @click="$router.push('/products')" class="btn btn-round btn-rose">
                   <i class="material-icons">arrow_back_ios</i>Maxsulotlarga</button>
                 <button @click="saveProduct()" class="btn btn-round btn-success">
                   <i class="material-icons ">add_box</i> Saqlash</button>
@@ -146,29 +146,40 @@ name: "AddProduct",
           timeout: 5000,
           rtl: false
         });
-        this.$swal('Hello Vue world!!!')
+
         return 0
       }
       if (this.newType1) {
-        // const res = await axios.post('/types/save',
-        //     {
-        //       name: this.type1name,
-        //       parentId: 0,
-        //       marketId: this.marketId
-        //     })
-        // this.type1 = res.data.id
-        console.log('Save Type1')
+        const res = await axios.post('/types/save',
+            {
+              name: this.type1name,
+              parentId: 0,
+              marketId: this.marketId
+            })
+        this.type1 = res.data.id
       }
       if (!this.type2){
-        //   const res = await axios.post('/types/save',
-        //       {
-        //         name: this.type2name,
-        //         parentId: this.type1,
-        //         marketId: this.marketId
-        //       })
-        // this.type2 = res.data.id
-        console.log('save type 2')
+          const res = await axios.post('/types/save',
+              {
+                name: this.type2name,
+                parentId: this.type1,
+                marketId: this.marketId
+              })
+        this.type2 = res.data.id
       }
+
+      await axios.post('/products/add',{
+        name: this.name,
+        type1: this.type1,
+        type2: this.type2,
+        realPrice: this.realPrice,
+        sellPrice: this.sellPrice,
+        soni: this.soni,
+        marketId: this.marketId,
+        valyuta: this.valyuta
+      }).then(
+          this.$swal('Saqlandikuu')
+      )
     },
 
     nameUpperCase: function (){

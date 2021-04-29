@@ -102,7 +102,7 @@ export default {
   },
   created() {
     if (localStorage.getItem('token')){
-      // location.replace('/')
+      location.replace('/')
     }
   },
   methods:{
@@ -113,7 +113,7 @@ export default {
           password: this.password
         });
         localStorage.setItem('token', res.data);
-        // location.replace('/')
+        location.replace('/')
       }catch (e){
         console.log(e)
       }

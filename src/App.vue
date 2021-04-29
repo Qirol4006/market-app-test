@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="wrapper ">
+    <div class="wrapper " v-if="okAuth" >
       <div class="sidebar text-left" data-color="green" data-background-color="black" data-image="/assets/img/sidebar-1.jpg">
         <!--
           Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
@@ -418,7 +418,7 @@
         </footer>
       </div>
     </div>
-<!--    <router-view/>-->
+    <router-view v-if="!okAuth"/>
   </div>
 </template>
 <script>
@@ -426,12 +426,26 @@ import axios from "axios";
 
 export default {
   name: 'App',
+  data(){
+    return{
+      okAuth:false
+    }
+  },
   async created() {
-    await axios.get('/user/getmarketid').then(
-        res => {
-          localStorage.setItem('marketId', res.data.marketId)
-        }
-    )
+
+    if (localStorage.getItem('token')){
+      this.okAuth = true
+    }else {
+      await this.$router.push('/login')
+    }
+
+    if (this.okAuth){
+      await axios.get('/user/getmarketid').then(
+          res => {
+            localStorage.setItem('marketId', res.data.marketId)
+          }
+      )
+    }
   }
 }
 </script>
