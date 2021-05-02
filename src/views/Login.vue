@@ -77,7 +77,8 @@
                   </span>
                 </div>
                 <div class="card-footer justify-content-center">
-                  <a href="javascript:void(0)" @click="logIn()" class="btn btn-rose btn-link btn-lg">Lets Go</a>
+                  <a href="javascript:void(0)" @click="$router.push('/')" class="btn btn-rose btn-link btn-lg">Bosh sahifa</a>
+                  <a href="javascript:void(0)" @click="logIn()" class="btn btn-rose btn-link btn-lg">Kirish</a>
                 </div>
               </div>
             </form>
@@ -104,6 +105,7 @@ export default {
     if (localStorage.getItem('token')){
       location.replace('/')
     }
+    document.title = "Kirish | Market App"
   },
   methods:{
     async logIn() {

@@ -5,10 +5,30 @@ import UserRegister from "@/views/UserRegister";
 import Login from "@/views/Login";
 import AllProducts from "@/views/AllProducts";
 import AddProduct from "@/views/AddProduct";
+import MarketRegister from "@/views/MarketRegister";
+import LoginMarket from "@/views/LoginMarket";
+import GetPermissionRequest from "@/views/GetPermissionRequest";
+
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/get/permission',
+    name: 'GetPermissionRequest',
+    component: GetPermissionRequest
+
+  },
+  {
+    path: '/market/login',
+    name: 'LoginMarket',
+    component: LoginMarket
+  },
+  {
+    path: '/market/register',
+    name: 'MarketRegister',
+    component: MarketRegister
+  },
   {
     path: '/add',
     name: 'AddProduct',

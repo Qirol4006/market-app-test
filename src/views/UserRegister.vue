@@ -150,6 +150,9 @@ export default {
       termsCheck: false
     }
   },
+  created() {
+    document.title = "Ro'yxatdan o'tish | Market App"
+  },
   methods:{
     async submitData() {
       const res = await axios.post('/user/register',{

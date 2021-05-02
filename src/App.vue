@@ -428,21 +428,26 @@ export default {
   name: 'App',
   data(){
     return{
-      okAuth:false
+      okAuth:false,
+      userInfo:[]
     }
   },
   async created() {
 
     if (localStorage.getItem('token')){
       this.okAuth = true
-    }else {
-      await this.$router.push('/login')
     }
 
     if (this.okAuth){
       await axios.get('/user/getmarketid').then(
           res => {
             localStorage.setItem('marketId', res.data.marketId)
+          }
+      )
+      await axios.get('/user/about/user').then(
+          res => {
+            this.userInfo = res.data
+            localStorage.setItem('userInfo', JSON.stringify(this.userInfo))
           }
       )
     }
