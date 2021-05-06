@@ -8,11 +8,23 @@ import AddProduct from "@/views/AddProduct";
 import MarketRegister from "@/views/MarketRegister";
 import LoginMarket from "@/views/LoginMarket";
 import GetPermissionRequest from "@/views/GetPermissionRequest";
+import EditProduct from "@/views/EditProduct";
+import PermissionRequests from "@/views/PermissionRequests";
 
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: "/permission/requests",
+    name: 'PermissionRequests',
+    component: PermissionRequests
+  },
+  {
+    path: '/product/edit/:id',
+    name: 'EditProduct',
+    component: EditProduct
+  },
   {
     path: '/get/permission',
     name: 'GetPermissionRequest',

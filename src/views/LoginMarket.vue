@@ -71,7 +71,7 @@ export default {
     }
   },
   created() {
-    if (localStorage.getItem('token')){
+    if (localStorage.getItem('marketToken')){
       location.replace('/')
     }
     document.title = "Kirish | Market App"

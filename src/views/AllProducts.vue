@@ -47,10 +47,10 @@
                         <td class="text-right">{{ item.soni }}</td>
 
                         <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" class="btn btn-success btn-round">
+                          <button type="button" @click="$router.push('/product/edit/' + item.id)" rel="tooltip" class="btn btn-success btn-round">
                             <i class="material-icons">edit</i>
                           </button>
-                          <button type="button" rel="tooltip" class="btn btn-danger btn-round">
+                          <button type="button" rel="tooltip" @click="deleteItem(item.id, item.name)" class="btn btn-danger btn-round">
                             <i class="material-icons">close</i>
                           </button>
                         </td>
@@ -96,10 +96,10 @@
                         <td class="text-right">{{ item.soni }}</td>
 
                         <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" class="btn btn-success btn-round">
+                          <button type="button" rel="tooltip" @click="$router.push('/product/edit/' + item.id)" class="btn btn-success btn-round">
                             <i class="material-icons">edit</i>
                           </button>
-                          <button type="button" rel="tooltip" class="btn btn-danger btn-round">
+                          <button type="button" rel="tooltip" @click="deleteItem(item.id, item.name)" class="btn btn-danger btn-round">
                             <i class="material-icons">close</i>
                           </button>
                         </td>
@@ -136,12 +136,40 @@ name: "AllProducts",
           this.products = res.data
         }
     )
+    document.title = "Barcha Maxsulotlar | Market App"
   },
   methods:{
     searchData:function (){
 
       this.query = this.query.toUpperCase()
       this.filteredProducts = this.products.filter(p => p.name.includes(this.query))
+    },
+
+    deleteItem(id, name){
+      this.$swal({
+        title: 'Siz ' + name + " maxsulotingizni o'chirib yuborasizmi ?",
+        showCancelButton: true,
+        confirmButtonText: `Ha albatta`,
+        cancelButtonText: 'Bekor qilish'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const res = await axios.get('/products/del/' + id)
+          if (res.data === 'market'){
+            this.$swal("Bunday market yo'q qayta urinib ko'ring !", '', 'danger')
+            return;
+          }
+          if (res.data === 'product'){
+            this.$swal("Bu maxsulot oldindan o'chirib yuborilgan !", '', 'error')
+          }else {
+            this.$swal("Maxsulot o'chirib yuborildi !", '', 'success')
+            await axios.get('/products/getall').then(
+                res => {
+                  this.products = res.data
+                }
+            )
+          }
+        }
+      })
     }
   }
 }

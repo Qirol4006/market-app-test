@@ -102,7 +102,6 @@ export default {
     await axios.get('/user/all/magazine').then(
         res => {
           this.allMarkets = res.data
-          console.log(res.data)
         }
     )
   },
@@ -118,16 +117,21 @@ export default {
         cancelButtonText: 'Bekor qilish'
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await axios.post('/user/getpermission', {
+          const res = await axios.post('/user/getpermission', {
             magazinId: id,
             userId: this.userInfo.id,
-            permission: "SOTUVCHI"
-          }).then(
-              res => {
-                console.log(res.data)
-              }
-          )
-              this.$swal("So'rov yuborildi !", '', 'success')
+            permission: "SOTUVCHI",
+            name: this.userInfo.name
+          })
+          if (res.data === 'market'){
+            this.$swal("Bunday market yo'q qayta urinib ko'ring !", '', 'danger')
+            return;
+          }
+          if (res.data === 'bad'){
+            this.$swal("Oldin so'rov yuborgansiz !", '', 'error')
+          }else {
+            this.$swal("So'rov yuborildi !", '', 'success')
+          }
         }
       })
     }

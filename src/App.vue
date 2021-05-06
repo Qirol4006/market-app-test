@@ -439,17 +439,21 @@ export default {
     }
 
     if (this.okAuth){
-      await axios.get('/user/getmarketid').then(
-          res => {
-            localStorage.setItem('marketId', res.data.marketId)
-          }
-      )
       await axios.get('/user/about/user').then(
           res => {
             this.userInfo = res.data
             localStorage.setItem('userInfo', JSON.stringify(this.userInfo))
           }
       )
+
+      if (localStorage.getItem('marketId')){
+        await axios.get('/user/getmarketid').then(
+            res => {
+              localStorage.setItem('marketId', res.data.marketId)
+            }
+        )
+      }
+
     }
   }
 }
