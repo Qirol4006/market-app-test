@@ -10,11 +10,29 @@ import LoginMarket from "@/views/LoginMarket";
 import GetPermissionRequest from "@/views/GetPermissionRequest";
 import EditProduct from "@/views/EditProduct";
 import PermissionRequests from "@/views/PermissionRequests";
+import ProductCategory from "@/views/ProductCategory";
+import SecondCategory from "@/views/SecondCategory";
+import ThirdCategory from "@/views/ThirdCategory";
 
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/categories/:id/:id2',
+    name: 'ThirdCategory',
+    component: ThirdCategory
+  },
+  {
+    path: '/category/:id/:name',
+    name: 'SecondCategory',
+    component: SecondCategory
+  },
+  {
+    path: '/category',
+    name: "ProductCategory",
+    component: ProductCategory
+  },
   {
     path: "/permission/requests",
     name: 'PermissionRequests',

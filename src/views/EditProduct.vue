@@ -108,8 +108,8 @@
 
 
               <div class="card-group justify-content-between col-sm-12">
-                <button type="submit" @click="$router.push('/products')" class="btn btn-round btn-rose">
-                  <i class="material-icons">arrow_back_ios</i>Maxsulotlarga</button>
+                <button type="submit" @click="$router.go(-1)" class="btn btn-round btn-rose">
+                  <i class="material-icons">arrow_back_ios</i>Ortga</button>
                 <button @click="saveProduct()" class="btn btn-round btn-success">
                   <i class="material-icons ">add_box</i> Saqlash</button>
               </div>
@@ -215,7 +215,7 @@ export default {
       }).then(
           this.$swal('Saqlandikuu').then(async (result) => {
             if (result.isConfirmed) {
-              this.$router.push('/products')
+              this.$router.go(-1)
             }
           }
           )
