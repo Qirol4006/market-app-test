@@ -10,6 +10,7 @@ import Toast from "vue-toastification";
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
 import VueSweetalert2 from 'vue-sweetalert2';
+import 'vue-owl-carousel'
 
 // If you don't need the styles, do not connect
 import 'sweetalert2/dist/sweetalert2.min.css';

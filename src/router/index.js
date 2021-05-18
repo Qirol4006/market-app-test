@@ -13,11 +13,17 @@ import PermissionRequests from "@/views/PermissionRequests";
 import ProductCategory from "@/views/ProductCategory";
 import SecondCategory from "@/views/SecondCategory";
 import ThirdCategory from "@/views/ThirdCategory";
+import SellProduct from "@/views/SellProduct";
 
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path:'/sell',
+    name: 'SellProduct',
+    component: SellProduct
+  },
   {
     path: '/categories/:id/:id2',
     name: 'ThirdCategory',
