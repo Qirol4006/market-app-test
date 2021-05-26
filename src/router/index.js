@@ -14,11 +14,23 @@ import ProductCategory from "@/views/ProductCategory";
 import SecondCategory from "@/views/SecondCategory";
 import ThirdCategory from "@/views/ThirdCategory";
 import SellProduct from "@/views/SellProduct";
+import ClearData from "@/views/ClearData";
+import Transactions from "@/views/Transactions";
 
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/transactions',
+    name: 'Transactions',
+    component: Transactions
+  },
+  {
+    path: '/cleardata',
+    name: 'ClearData',
+    component: ClearData
+  },
   {
     path:'/sell',
     name: 'SellProduct',

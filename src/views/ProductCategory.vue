@@ -13,19 +13,20 @@
             </div>
             <div class="card-body ">
               <button
-                  class="btn btn-facebook btn-round btn-block"
+                  class="btn btn-round btn-info"
                   v-for="item in allTypes"
                   v-bind:key="item.id"
                   @click="secondLevel(item.id, item.name)"
               >
                 <span class="pull-left">{{ item.name }}</span>
-                <span class="pull-right"><i class="text-info material-icons">arrow_forward</i></span>
+                <span class="pull-right"><i class=" material-icons">arrow_forward</i></span>
               </button>
             </div>
 
-            <div class="card-group justify-content-between col-sm-12">
+            <div class="card-group justify-content-center col-sm-12">
               <button type="submit" @click="$router.push('/products')" class="btn btn-round btn-rose">
                 <i class="material-icons">arrow_back_ios</i>Maxsulotlarga</button>
+              <button class="btn btn-round btn-success" ><i class="material-icons">edit</i> Tahrirlash</button>
 
             </div>
           </div>
@@ -70,5 +71,6 @@ export default {
 </script>
 
 <style scoped>
+
 
 </style>

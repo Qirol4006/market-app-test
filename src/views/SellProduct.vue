@@ -1,6 +1,6 @@
 <template>
-<div class="card-body justify-content-center form-group">
-  <div class="input-group no-border col-sm-12">
+<div class=" justify-content-center form-group">
+  <div class="input-group">
 
 
       <div class="input-group no-border col-sm-12">
@@ -62,13 +62,21 @@
                 </tr>
                 </tbody>
               </table>
+              <h5>Umumiy summa {{ sTring(summ) }}</h5>
             </div>
           </div>
-          <div class="card-footer justify-content-center">
-            <button class="btn btn-info" @click="sell()">Sotish</button>
+          <div class="card-footer justify-content-around">
+            <button class="btn btn-danger" @click="$router.go(-1)">
+              <i class="material-icons">arrow_back_ios</i> Ortga</button>
+            <button class="btn btn-info" @click="sell()">
+              <i class="material-icons">done</i> Sotish</button>
             <br>
-            <h5>Umumiy summa {{ summ }}</h5>
           </div>
+          <div class="card-footer justify-content-end">
+            <a href="javascript:void(0)" @click="$router.push('/transactions')">
+              <i class="material-icons">print</i> Cheklar</a>
+          </div>
+
         </div>
       </div>
     </div>
@@ -80,6 +88,7 @@
 
 <script>
 import axios from "axios";
+import numeral from "numeral"
 
 export default {
   name: "SellProduct",
@@ -90,7 +99,8 @@ export default {
       orgProducts:[],
       selectedProducts:[],
       filteredProducts:[],
-      summ:0
+      summ:0,
+      note:''
     }
   },
   async created() {
@@ -103,9 +113,27 @@ export default {
     document.title = "Maxsulotlarni sotish | Market App"
   },
   methods:{
+
+    sTring(summa){
+      return numeral(summa).format('0,0')
+    },
+
     async sell() {
+      if (this.note === '') this.note = 'Sold With ☺'
+      this.selectedProducts.push({
+        name: this.note
+      })
       const res = await axios.post('/products/sell', this.selectedProducts)
+      this.$swal.fire(
+          {
+            text:"Sotildi!",
+            icon:'success'
+          }
+      )
       console.log(res.data)
+      this.products = this.orgProducts
+      this.selectedProducts = []
+      this.summ = 0
     },
 
     searchData:function (){
@@ -116,6 +144,10 @@ export default {
 
     delItem(id){
       const indexObj = this.selectedProducts.findIndex(s => s.product_id === id)
+      this.products.push(
+          this.orgProducts.filter(s => s.id === id)[0]
+      );
+      this.summ -= this.selectedProducts[indexObj].price * this.selectedProducts[indexObj].count
       this.selectedProducts.splice(indexObj, 1);
     },
 
@@ -125,6 +157,7 @@ export default {
       if (this.selectedProducts[indexObj].count === prod[0].soni){
         return;
       }
+      this.summ += this.selectedProducts[indexObj].price
       this.selectedProducts[indexObj].count ++
     },
 
@@ -133,6 +166,7 @@ export default {
       if (this.selectedProducts[indexObj].count === 1){
         return;
       }
+      this.summ -= this.selectedProducts[indexObj].price
       this.selectedProducts[indexObj].count --
     },
 
@@ -147,6 +181,7 @@ export default {
             valyuta:p[0].valyuta
           }
       )
+      this.summ += p[0].sellPrice
       this.query = '';
       this.products = this.products.filter(k => k.id !== prod)
       console.log(this.selectedProducts)

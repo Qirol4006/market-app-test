@@ -3,9 +3,9 @@
     <div class="page-header register-page header-filter" filter-color="black" style="background-image: url('../../assets/img/register.jpg')">
       <div class="container">
         <div class="row">
-          <div class="col-md-10 ml-auto mr-auto">
+          <div class="col-md-6 ml-auto mr-auto">
             <div class="card card-signup">
-              <h2 class="card-title text-center">Register</h2>
+              <h2 class="card-title text-center">Marketga kirish</h2>
               <div class="card-body">
                 <div class="row justify-content-center">
                   <div class="">
@@ -74,23 +74,29 @@ export default {
     if (localStorage.getItem('marketToken')){
       location.replace('/')
     }
-    document.title = "Kirish | Market App"
+    document.title = "Market | Market App"
   },
   methods:{
     async logIn() {
-      try {
         const res = await axios.post('/user/market', {
           username: this.username,
           password: this.password
         });
-        localStorage.setItem('marketToken', res.data);
-        location.replace('/')
-      }catch (e){
-        console.log(e)
-      }
+        if (res.data !== 'hatok' && res.data !== 'xatok'){
+          localStorage.setItem('marketToken', res.data);
+          location.replace('/')
+        }else{
+          this.$swal.fire({
+            icon: 'error',
+            text: "Parol yoki Login xato"
+          })
+        }
+        }
+
+
     }
   }
-}
+
 </script>
 
 <style scoped>
