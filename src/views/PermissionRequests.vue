@@ -26,7 +26,7 @@
                   <td>{{ item.permission }}</td>
 
                   <td class="td-actions text-right">
-                    <button type="button" rel="tooltip" @click="acceptRequest(item.id, item.name)"
+                    <button type="button" rel="tooltip" @click="acceptRequest(item.id, item.name, item.permission)"
                             class="btn btn-success btn-round">
                       <i class="material-icons">done</i>
                     </button>
@@ -73,11 +73,11 @@ export default {
     document.title = "Qabul uchun So'rovlar | Market App"
   },
   methods:{
-    async acceptRequest(id, name) {
+    async acceptRequest(id, name, type) {
       console.log(id, name)
 
       this.$swal({
-        title: 'Siz ' + name + " do'koningizga a`zo bo'lishini xohlaysizmi ?",
+        title: 'Siz ' + name + " do'koningizga "+type+" sifatida a`zo bo'lishini xohlaysizmi ?",
         showCancelButton: true,
         confirmButtonText: `Ha albatta`,
         cancelButtonText: 'Bekor qilish'

@@ -69,7 +69,11 @@
                   <tbody>
                   <tr v-for="item in allMarkets" v-bind:key="item.id">
                     <td class="text-center">{{ item.id }}</td>
-                    <td class="text-left"><a @click="saveRequest(item.id, item.name)" href="javascript:void(0)">{{ item.name }}</a></td>
+                    <td class="text-left h4">{{ item.name }}
+                      <button class="btn btn-sm btn-success btn-round" @click="saveRequest(item.id, item.name, 'BOSHLIQ')">Boshliq</button>
+                      <button class="btn btn-sm btn-warning btn-round" @click="saveRequest(item.id, item.name, 'ISHCHI')">Ishchi</button>
+
+                    </td>
 
                   </tr>
                   </tbody>
@@ -99,6 +103,7 @@ export default {
   },
   async created() {
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
+    document.title = "Do'konlar | Market App"
     await axios.get('/user/all/magazine').then(
         res => {
           this.allMarkets = res.data
@@ -109,9 +114,9 @@ export default {
     searchData: function (){
       this.filteredMarkets = this.allMarkets.filter(p => p.name.includes(this.query))
     },
-    saveRequest(id, name){
+    saveRequest(id, name, type){
       this.$swal({
-        title: 'Siz ' + name + " do'koniga a`zo bo'lishni xohlaysizmi ?",
+        title: 'Siz ' + name + " do'koniga "+type+" sifatida a`zo bo'lishni xohlaysizmi ?",
         showCancelButton: true,
         confirmButtonText: `Ha albatta`,
         cancelButtonText: 'Bekor qilish'
@@ -120,7 +125,7 @@ export default {
           const res = await axios.post('/user/getpermission', {
             magazinId: id,
             userId: this.userInfo.id,
-            permission: "SOTUVCHI",
+            permission: type,
             name: this.userInfo.name
           })
           if (res.data === 'market'){

@@ -30,7 +30,7 @@
                       <tr>
                         <th class="text-center">#</th>
                         <th>Nomi</th>
-                        <th>Real Narxi</th>
+                        <th v-if="isBoshliq">Real Narxi</th>
                         <th>Sotilishi</th>
                         <th class="text-right">Soni</th>
                         <th class="text-right">Amallar</th>
@@ -40,7 +40,7 @@
                       <tr v-for="item in filteredProducts" v-bind:key="item.id">
                         <td class="text-center">{{ item.id }}</td>
                         <td>{{ item.name }}</td>
-                        <td>{{ item.realPrice }}</td>
+                        <td v-if="isBoshliq">{{ item.realPrice }}</td>
                         <td>{{ item.sellPrice }} {{ item.valyuta}}</td>
                         <td class="text-right">{{ item.soni }}</td>
 
@@ -79,7 +79,7 @@
                       <tr>
                         <th class="text-center">#</th>
                         <th>Nomi</th>
-                        <th>Real Narxi</th>
+                        <th v-if="isBoshliq">Real Narxi</th>
                         <th>Sotilishi</th>
                         <th class="text-right">Soni</th>
                         <th class="text-right">Amallar</th>
@@ -89,7 +89,7 @@
                       <tr v-for="item in products" v-bind:key="item.id">
                         <td class="text-center">{{ item.id }}</td>
                         <td>{{ item.name }}</td>
-                        <td>{{ item.realPrice }}</td>
+                        <td v-if="isBoshliq">{{ item.realPrice }}</td>
                         <td>{{ item.sellPrice }} {{ item.valyuta}}</td>
                         <td class="text-right">{{ item.soni }}</td>
 
@@ -125,7 +125,9 @@ name: "AllProducts",
     return{
       products:[],
       filteredProducts:[],
-      query:''
+      query:'',
+      userInfo:[],
+      isBoshliq:true
     }
   },
   async created() {
@@ -135,6 +137,12 @@ name: "AllProducts",
         }
     )
     document.title = "Barcha Maxsulotlar | Market App"
+
+    this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
+
+    if (this.userInfo.type !== 'BOSHLIQ'){
+      this.isBoshliq = false
+    }
   },
   methods:{
     searchData:function (){
@@ -144,6 +152,7 @@ name: "AllProducts",
     },
 
     deleteItem(id, name){
+      if (!this.isBoshliq) return;
       this.$swal({
         title: 'Siz ' + name + " maxsulotingizni o'chirib yuborasizmi ?",
         showCancelButton: true,

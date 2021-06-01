@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="wrapper " v-if="okAuth" >
-      <div class="sidebar text-left" data-color="green" data-background-color="black" data-image="../../assets/img/sidebar-2.jpg">
+      <div class="sidebar text-left" data-color="green" data-background-color="black" data-image="/assets/img/sidebar-3.jpg">
         <!--
           Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -34,15 +34,9 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">
-                      <span class="sidebar-mini"> EP </span>
-                      <span class="sidebar-normal"> Edit Profile </span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="#" @click="logOut()">
                       <span class="sidebar-mini"> S </span>
-                      <span class="sidebar-normal"> Settings </span>
+                      <span class="sidebar-normal"> Chiqish </span>
                     </a>
                   </li>
                 </ul>
@@ -56,34 +50,52 @@
                 <p> Boshqaruv paneli</p>
               </router-link>
             </div>
-            <div class="nav-item">
+            <div class="nav-item" v-if="inMember">
               <router-link to="/sell" class="nav-link">
                 <i class="material-icons">sell</i>
                 <p> Sotish </p>
               </router-link>
             </div>
-            <div class="nav-item ">
+            <div class="nav-item " v-if="inMember">
               <router-link to="/category" class="nav-link">
                 <i class="material-icons">filter_list</i>
                 <p> Toifalar </p>
               </router-link>
             </div>
-            <div class="nav-item ">
+            <div class="nav-item " v-if="inMember && isBoshliq">
               <router-link to="/add" class="nav-link">
                 <i class="material-icons">library_add</i>
                 <p> Yangi mahsulot </p>
               </router-link>
             </div>
-            <div class="nav-item">
+            <div class="nav-item" v-if="inMember">
               <router-link to="/products" class="nav-link">
                 <i class="material-icons">inventory_2</i>
                 <p> Barcha mahsulotlar </p>
               </router-link>
             </div>
-            <div class="nav-item">
+            <div class="nav-item" v-if="inMember">
               <router-link to="/transactions" class="nav-link">
                 <i class="material-icons">assignment_turned_in</i>
                 <p> Cheklar </p>
+              </router-link>
+            </div>
+            <div v-if="okMarket && isBoshliq" class="nav-item">
+              <router-link to="/employee" class="nav-link">
+                <i class="material-icons">badge</i>
+                <p> Ishchilar </p>
+              </router-link>
+            </div>
+            <div v-if="okMarket" class="nav-item">
+              <router-link to="/permission/requests" class="nav-link">
+                <i class="material-icons">done</i>
+                <p> Qabul uchun so'rovlar </p>
+              </router-link>
+            </div>
+            <div v-if="okAuth && !inMember" class="nav-item">
+              <router-link to="/get/permission" class="nav-link">
+                <i class="material-icons">search</i>
+                <p> Marketga a`zo bo'lish </p>
               </router-link>
             </div>
             <div v-if="!okMarket" class="nav-item">
@@ -132,42 +144,12 @@
               </form>
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a class="nav-link" href="javascript:;">
+                  <a class="nav-link" href="javascript:;" @click="$router.push('/')">
                     <i class="material-icons">dashboard</i>
                     <p class="d-lg-none d-md-block">
                       Stats
                     </p>
                   </a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="material-icons">notifications</i>
-                    <span class="notification">5</span>
-                    <p class="d-lg-none d-md-block">
-                      Some Actions
-                    </p>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                    <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                    <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                    <a class="dropdown-item" href="#">Another Notification</a>
-                    <a class="dropdown-item" href="#">Another One</a>
-                  </div>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="material-icons">person</i>
-                    <p class="d-lg-none d-md-block">
-                      Account
-                    </p>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                    <a class="dropdown-item" href="#">Profile</a>
-                    <a class="dropdown-item" href="#">Settings</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Log out</a>
-                  </div>
                 </li>
               </ul>
             </div>
@@ -184,31 +166,21 @@
             <nav class="float-left">
               <ul>
                 <li>
-                  <a href="https://www.creative-tim.com/">
-                    Creative Tim
+                  <a href="https://t.me/qirol4006">
+                    Komilov Abror
                   </a>
                 </li>
                 <li>
-                  <a href="https://www.creative-tim.com/presentation">
-                    About Us
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.creative-tim.com/blog">
-                    Blog
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.creative-tim.com/license">
-                    Licenses
+                  <a href="https://www.instagram.com/qirol_4006/">
+                    Biz haqimizda
                   </a>
                 </li>
               </ul>
             </nav>
             <div class="copyright float-right">
-              &copy;
-              , made with <i class="material-icons">favorite</i> by
-              <a href="https://www.creative-tim.com/" target="_blank">Creative Tim</a> for a better web.
+              &copy; 2021
+              made with <i class="material-icons">favorite</i> by
+              <a href="https://t.me/qirol4006" target="_blank">Komilov Abror</a> for a better web.
             </div>
           </div>
         </footer>
@@ -227,7 +199,8 @@ export default {
       okAuth:false,
       userInfo:[],
       okMarket:false,
-      inMember:false
+      inMember:false,
+      isBoshliq:false
     }
   },
   async created() {
@@ -246,15 +219,21 @@ export default {
           }
       )
 
+      if (this.userInfo.type === 'BOSHLIQ') this.isBoshliq = true
+
       if (!localStorage.getItem('marketId')){
         await axios.get('/user/getmarketid').then(
             res => {
+              if (res.data === 'NotAccepted!') return;
               localStorage.setItem('marketId', res.data.marketId)
-              this.inMember = true
             }
         )
       }
 
+
+    }
+    if (localStorage.getItem('marketId')){
+      this.inMember = true;
     }
   },
 
@@ -262,6 +241,11 @@ export default {
     ros(ok){
       console.log(ok)
       return 'active'
+    },
+
+    logOut(){
+      localStorage.clear()
+      location.replace('/')
     }
   }
 }

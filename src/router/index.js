@@ -16,11 +16,29 @@ import ThirdCategory from "@/views/ThirdCategory";
 import SellProduct from "@/views/SellProduct";
 import ClearData from "@/views/ClearData";
 import Transactions from "@/views/Transactions";
+import EmployeeList from "@/views/EmployeeList";
+import ManageTypes from "@/views/ManageTypes";
+import Edittype from "@/views/Edittype";
 
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/type/edit/:id',
+    name: 'EditType',
+    component: Edittype
+  },
+  {
+    path: '/manage/types',
+    name: 'ManageTypes',
+    component: ManageTypes
+  },
+  {
+    path: '/employee',
+    name: 'MarketEmployee',
+    component: EmployeeList
+  },
   {
     path: '/transactions',
     name: 'Transactions',

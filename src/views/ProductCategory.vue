@@ -26,7 +26,8 @@
             <div class="card-group justify-content-center col-sm-12">
               <button type="submit" @click="$router.push('/products')" class="btn btn-round btn-rose">
                 <i class="material-icons">arrow_back_ios</i>Maxsulotlarga</button>
-              <button class="btn btn-round btn-success" ><i class="material-icons">edit</i> Tahrirlash</button>
+              <button class="btn btn-round btn-success" @click="$router.push('/manage/types')">
+                <i class="material-icons">edit</i> Tahrirlash</button>
 
             </div>
           </div>
@@ -53,7 +54,6 @@ export default {
     await axios.get('/types/all/0').then(
         res => {
           this.allTypes = res.data
-          console.log(res.data)
         }
     )
 

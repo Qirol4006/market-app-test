@@ -12,7 +12,7 @@
                 <h4 class="card-title">Maxsulot Qo'shish</h4>
               </div>
               <div class="card-body ">
-                <form method="#" action="#">
+                <form>
                   <div class="form-group">
                     <label for="inputName" class="bmd-label-floating">Nomi</label>
                     <input type="text" v-model="name" @keyup="nameUpperCase" class="form-control" id="inputName">
@@ -74,9 +74,9 @@
                     </div>
 
                     <input v-if="!type2name" @keyup="searchData()" v-model="query" type="text" class="form-control" placeholder="Type here...">
-                    <button v-if="!type2name" @click="addTypes()" class="btn btn-just-icon btn-round btn-rose">
+                    <a href="javascript:;" v-if="!type2name" @click="addTypes()" class="btn btn-just-icon btn-round btn-rose">
                       <i class="material-icons">add_circle_outline</i>
-                    </button>
+                    </a>
                   </div>
 
 
@@ -127,16 +127,25 @@ name: "AddProduct",
       typesB:[],
       newType1:false,
       newType2:false,
+      userInfo:[]
     }
   },
   async created() {
-    const typesReq = await axios.get('/types/all')
-    this.allTypes = typesReq.data;
-    this.sortedTypes(0);
+
     document.title = "Maxsulot Qo'shish | MarketApp"
-    this.marketId = localStorage.getItem('marketId')
+
+    await this.allData()
   },
   methods:{
+
+    async allData() {
+      const typesReq = await axios.get('/types/all')
+      this.allTypes = typesReq.data;
+      this.sortedTypes(0);
+      this.marketId = localStorage.getItem('marketId')
+      this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
+      if (this.userInfo.type !== 'BOSHLIQ') this.$router.push('/sell')
+    },
 
     async saveProduct() {
       if (!(this.type1name && this.type2name)){
@@ -178,8 +187,9 @@ name: "AddProduct",
         marketId: this.marketId,
         valyuta: this.valyuta
       }).then(
-          this.$swal('Saqlandikuu')
+          this.$swal('Saqlandikuu'),
       )
+      await this.allData()
     },
 
     nameUpperCase: function (){

@@ -94,9 +94,9 @@
                     </div>
 
                     <input v-if="!type2name" @keyup="searchData()" v-model="query" type="text" class="form-control" placeholder="Type here...">
-                    <button v-if="!type2name" @click="addTypes()" class="btn btn-just-icon btn-round btn-rose">
+                    <a href="javascript:;" v-if="!type2name" @click="addTypes()" class="btn btn-just-icon btn-round btn-rose">
                       <i class="material-icons">add_circle_outline</i>
-                    </button>
+                    </a>
                   </div>
 
 
@@ -148,10 +148,19 @@ export default {
       newType1:false,
       newType2:false,
       productId:this.$route.params.id,
-      getNameId:[]
+      getNameId:[],
+      userInfo:[],
+      isBoshliq:true
     }
   },
   async created() {
+    this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
+
+    if (this.userInfo.type !== 'BOSHLIQ'){
+      this.isBoshliq = false
+    }
+    if (!this.isBoshliq) this.$router.push('/sell')
+
     const typesReq = await axios.get('/types/all')
     const prod = (await axios.get('/products/' + this.productId)).data;
     {
@@ -170,11 +179,11 @@ export default {
     this.sortedTypes(this.type1);
     document.title = "Maxsulot O'zgartish | MarketApp"
     this.marketId = localStorage.getItem('marketId')
+
   },
   methods:{
     async saveProduct() {
       if (!(this.type1name && this.type2name)){
-        console.log(12222222)
         this.$toast.error("Turlarni To'diring !", {
           position: "top-center",
           timeout: 5000,

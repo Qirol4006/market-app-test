@@ -38,6 +38,8 @@ export default {
     return{
       sold:[],
       sells:[],
+      userInfo:[],
+      isBoshliq:true
     }
   },
 
@@ -60,6 +62,12 @@ export default {
           this.sells = this.sells.reverse()
         }
     )
+
+    this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
+
+    if (this.userInfo.type !== 'BOSHLIQ'){
+      this.isBoshliq = false
+    }
   },
 
   methods:{
@@ -69,27 +77,42 @@ export default {
     },
 
     async deleteTransaction(id) {
-      let res = await axios.get('/products/delete/transaction/' + id)
-      console.log(res.data)
-      if (res.data === "Deleted!"){
-        await axios.get('/products/sold').then(
-            res => {
-              if (res.data === 'NotAccepted'){
-                this.$router.replace('/')
-              }
-              this.sold = res.data
-            }
-        );
-        await axios.get('/products/sells').then(
-            res => {
-              if (res.data === 'NotAccepted'){
-                this.$router.replace('/')
-              }
-              this.sells = res.data
-              this.sells = this.sells.reverse()
-            }
-        )
-      }
+
+      if (!this.isBoshliq) return;
+
+      this.$swal({
+        title: "Siz ushbu chekni o'chirishni xohlaysizmi ?",
+        showCancelButton: true,
+        confirmButtonText: `Ha`,
+        cancelButtonText: 'Bekor qilish'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          let res = await axios.get('/products/delete/transaction/' + id)
+
+          if (res.data === "Deleted!"){
+            await axios.get('/products/sold').then(
+                res => {
+                  if (res.data === 'NotAccepted'){
+                    this.$router.replace('/')
+                  }
+                  this.sold = res.data
+                }
+            );
+            this.$swal("O'chirib yuborildi !", '', 'success')
+            await axios.get('/products/sells').then(
+                res => {
+                  if (res.data === 'NotAccepted'){
+                    this.$router.replace('/')
+                  }
+                  this.sells = res.data
+                  this.sells = this.sells.reverse()
+                }
+            )
+          }
+        }
+      })
+
+
     }
   }
 }
