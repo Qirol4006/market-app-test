@@ -1,27 +1,23 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import UserRegister from "@/views/UserRegister";
-import Login from "@/views/Login";
-import AllProducts from "@/views/AllProducts";
-import AddProduct from "@/views/AddProduct";
-import MarketRegister from "@/views/MarketRegister";
-import LoginMarket from "@/views/LoginMarket";
-import GetPermissionRequest from "@/views/GetPermissionRequest";
-import EditProduct from "@/views/EditProduct";
-import PermissionRequests from "@/views/PermissionRequests";
-import ProductCategory from "@/views/ProductCategory";
-import SecondCategory from "@/views/SecondCategory";
-import ThirdCategory from "@/views/ThirdCategory";
-import SellProduct from "@/views/SellProduct";
-import ClearData from "@/views/ClearData";
-import Transactions from "@/views/Transactions";
-import EmployeeList from "@/views/EmployeeList";
-import ManageTypes from "@/views/ManageTypes";
-import Edittype from "@/views/Edittype";
-
-
-Vue.use(VueRouter)
+import {createRouter, createWebHistory} from 'vue-router'
+import Edittype from "@/views/EdittypeView.vue";
+import ManageTypes from "@/views/ManageTypes.vue";
+import EmployeeList from "@/views/EmployeeList.vue";
+import Transactions from "@/views/Transactions.vue";
+import ClearData from "@/views/ClearData.vue";
+import SellProduct from "@/views/SellProduct.vue";
+import ThirdCategory from "@/views/ThirdCategory.vue";
+import SecondCategory from "@/views/SecondCategory.vue";
+import ProductCategory from "@/views/ProductCategory.vue";
+import PermissionRequests from "@/views/PermissionRequests.vue";
+import EditProduct from "@/views/EditProduct.vue";
+import GetPermissionRequest from "@/views/GetPermissionRequest.vue";
+import LoginMarket from "@/views/LoginMarket.vue";
+import MarketRegister from "@/views/MarketRegister.vue";
+import AddProduct from "@/views/AddProduct.vue";
+import AllProducts from "@/views/AllProducts.vue";
+import Login from "@/views/LoginView.vue";
+import UserRegister from "@/views/UserRegister.vue";
+import Home from "@/views/HomeComponent.vue";
 
 const routes = [
   {
@@ -124,13 +120,12 @@ const routes = [
     path: '/about/:id',
     name: 'About',
 
-    component: () => import('../views/About.vue')
+    component: () => import('../views/AboutComponent.vue')
   }
 ]
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
   routes
 })
 

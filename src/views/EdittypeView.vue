@@ -42,7 +42,7 @@
 import axios from "axios";
 
 export default {
-  name: "Edittype",
+  name: "EdittypeView",
   data(){
     return{
       typeId:0,

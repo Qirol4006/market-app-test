@@ -1,4 +1,4 @@
-# market-app-test
+# market-app
 
 ## Project setup
 ```

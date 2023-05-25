@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import {createApp} from 'vue'
 import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
@@ -15,24 +15,18 @@ import 'vue-owl-carousel'
 // If you don't need the styles, do not connect
 import 'sweetalert2/dist/sweetalert2.min.css';
 
-Vue.use(VueSweetalert2);
 
 const options = {
-  transition: "Vue-Toastification__bounce",
-  maxToasts: 20,
-  newestOnTop: true
+    transition: "Vue-Toastification__bounce",
+    maxToasts: 20,
+    newestOnTop: true
 };
 
 
-Vue.use(Toast, options);
-
-
-Vue.use(VueAxios, axios)
-
-Vue.config.productionTip = false
-
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+createApp(App)
+    .use(VueSweetalert2)
+    .use(Toast, options)
+    .use(VueAxios, axios)
+    .use(store)
+    .use(router)
+    .mount('#app')

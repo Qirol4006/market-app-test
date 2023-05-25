@@ -33,7 +33,7 @@ import axios from "axios";
 import numeral from "numeral";
 
 export default {
-  name: "Transactions",
+  name: "TransactionsView",
   data(){
     return{
       sold:[],

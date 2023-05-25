@@ -61,7 +61,7 @@
 <script>
 
 export default {
-  name: 'Home',
+  name: 'HomeComponent',
   data(){
     return{
       okAuth:false,

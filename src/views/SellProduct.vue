@@ -4,7 +4,7 @@
 
 
       <div class="input-group no-border col-sm-12  col-lg-12 col-sm-12">
-        <input @keyup="searchData()" v-model="query" type="text" value="" class="form-control" placeholder="Qidirish...">
+        <input @keyup="searchData()" v-model="query" type="text" class="form-control" placeholder="Qidirish...">
         <button type="submit" class="btn btn-white btn-round btn-just-icon">
           <i class="material-icons">qr_code_scanner</i>
           <div class="ripple-container"></div>
